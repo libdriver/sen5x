@@ -226,272 +226,290 @@ uint8_t sen5x_register_test(sen5x_type_t type)
     }
     sen5x_interface_debug_print("sen5x: check disable cleaning %s.\n", res == 0 ? "ok" : "error");
     
-    /* sen5x_set_temperature_compensation/sen5x_get_temperature_compensation test */
-    sen5x_interface_debug_print("sen5x: sen5x_set_temperature_compensation/sen5x_get_temperature_compensation test.\n");
-    
-    reg16s0 = rand() % 100;
-    reg16s1 = -(rand() % 100);
-    reg16u0 = rand() % 100;
-    res = sen5x_set_temperature_compensation(&gs_handle, reg16s0, reg16s1, reg16u0);
-    if (res != 0)
+    if (type != SEN50)
     {
-        sen5x_interface_debug_print("sen5x: set temperature compensation failed.\n");
-        (void)sen5x_deinit(&gs_handle);
+        /* sen5x_set_temperature_compensation/sen5x_get_temperature_compensation test */
+        sen5x_interface_debug_print("sen5x: sen5x_set_temperature_compensation/sen5x_get_temperature_compensation test.\n");
         
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: set temperature offset %d.\n", reg16s0);
-    sen5x_interface_debug_print("sen5x: set normalized temperature offset slope %d.\n", reg16s1);
-    sen5x_interface_debug_print("sen5x: set time constant %d.\n", reg16u0);
-    res = sen5x_get_temperature_compensation(&gs_handle, &reg16s0_check, &reg16s1_check, &reg16u0_check);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: get temperature compensation failed.\n");
-        (void)sen5x_deinit(&gs_handle);
+        reg16s0 = rand() % 100;
+        reg16s1 = -(rand() % 100);
+        reg16u0 = rand() % 100;
+        res = sen5x_set_temperature_compensation(&gs_handle, reg16s0, reg16s1, reg16u0);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: set temperature compensation failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: set temperature offset %d.\n", reg16s0);
+        sen5x_interface_debug_print("sen5x: set normalized temperature offset slope %d.\n", reg16s1);
+        sen5x_interface_debug_print("sen5x: set time constant %d.\n", reg16u0);
+        res = sen5x_get_temperature_compensation(&gs_handle, &reg16s0_check, &reg16s1_check, &reg16u0_check);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: get temperature compensation failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: check temperature offset %s.\n", reg16s0 == reg16s0_check ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check normalized temperature offset slope %s.\n", reg16s1 == reg16s1_check ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check time constant %s.\n", reg16u0 == reg16u0_check ? "ok" : "error");
         
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: check temperature offset %s.\n", reg16s0 == reg16s0_check ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check normalized temperature offset slope %s.\n", reg16s1 == reg16s1_check ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check time constant %s.\n", reg16u0 == reg16u0_check ? "ok" : "error");
-    
-    /* restore */
-    res = sen5x_set_temperature_compensation(&gs_handle, 0, 0, 0);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: set temperature compensation failed.\n");
-        (void)sen5x_deinit(&gs_handle);
-        
-        return 1;
-    }
-    
-    /* sen5x_set_warm_start/sen5x_get_warm_start test */
-    sen5x_interface_debug_print("sen5x: sen5x_set_warm_start/sen5x_get_warm_start test.\n");
-    
-    reg16u0 = rand() % 100;
-    res = sen5x_set_warm_start(&gs_handle, reg16u0);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: set warm start failed.\n");
-        (void)sen5x_deinit(&gs_handle);
-        
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: set warm start %d.\n", reg16u0);
-    res = sen5x_get_warm_start(&gs_handle, &reg16u0_check);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: get warm start failed.\n");
-        (void)sen5x_deinit(&gs_handle);
-        
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: check warm start %s.\n", reg16u0 == reg16u0_check ? "ok" : "error");
-    
-    /* restore */
-    res = sen5x_set_warm_start(&gs_handle, 0);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: set warm start failed.\n");
-        (void)sen5x_deinit(&gs_handle);
-        
-        return 1;
+        /* restore */
+        res = sen5x_set_temperature_compensation(&gs_handle, 0, 0, 0);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: set temperature compensation failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
     }
     
-    /* sen5x_set_voc_algorithm_tuning/sen5x_get_voc_algorithm_tuning test */
-    sen5x_interface_debug_print("sen5x: sen5x_set_voc_algorithm_tuning/sen5x_get_voc_algorithm_tuning test.\n");
-    
-    reg16s0 = (rand() % 100) + 1;
-    reg16s1 = (rand() % 100) + 1;
-    reg16s2 = (rand() % 100) + 1;
-    reg16s3 = (rand() % 100) + 1;
-    reg16s4 = (rand() % 100) + 10;
-    reg16s5 = (rand() % 100) + 1;
-    res = sen5x_set_voc_algorithm_tuning(&gs_handle, reg16s0, reg16s1, reg16s2,
-                                         reg16s3, reg16s4, reg16s5);
-    if (res != 0)
+    if (type != SEN50)
     {
-        sen5x_interface_debug_print("sen5x: set voc algorithm tuning failed.\n");
-        (void)sen5x_deinit(&gs_handle);
+        /* sen5x_set_warm_start/sen5x_get_warm_start test */
+        sen5x_interface_debug_print("sen5x: sen5x_set_warm_start/sen5x_get_warm_start test.\n");
         
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: set index offset %d.\n", reg16s0);
-    sen5x_interface_debug_print("sen5x: set learning time offset hour %d.\n", reg16s1);
-    sen5x_interface_debug_print("sen5x: set learning time gain hour %d.\n", reg16s2);
-    sen5x_interface_debug_print("sen5x: set gating max duration minute %d.\n", reg16s3);
-    sen5x_interface_debug_print("sen5x: set std initial %d.\n", reg16s4);
-    sen5x_interface_debug_print("sen5x: set gain factor %d.\n", reg16s5);
-    res = sen5x_get_voc_algorithm_tuning(&gs_handle, &reg16s0_check, &reg16s1_check, &reg16s2_check,
-                                         &reg16s3_check, &reg16s4_check, &reg16s5_check);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: get voc algorithm tuning failed.\n");
-        (void)sen5x_deinit(&gs_handle);
+        reg16u0 = rand() % 100;
+        res = sen5x_set_warm_start(&gs_handle, reg16u0);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: set warm start failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: set warm start %d.\n", reg16u0);
+        res = sen5x_get_warm_start(&gs_handle, &reg16u0_check);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: get warm start failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: check warm start %s.\n", reg16u0 == reg16u0_check ? "ok" : "error");
         
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: check index offset %s.\n", reg16s0 == reg16s0_check ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check learning time offset hour %s.\n", reg16s1 == reg16s1_check ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check learning time gain hour %s.\n", reg16s2 == reg16s2_check ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check gating max duration minute %s.\n", reg16s3 == reg16s3_check ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check std initial %s.\n", reg16s4 == reg16s4_check ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check gain factor %s.\n", reg16s5 == reg16s5_check ? "ok" : "error");
-    
-    /* restore */
-    res = sen5x_set_voc_algorithm_tuning(&gs_handle, 100, 12, 12, 180, 50, 230);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: set voc algorithm tuning failed.\n");
-        (void)sen5x_deinit(&gs_handle);
-        
-        return 1;
+        /* restore */
+        res = sen5x_set_warm_start(&gs_handle, 0);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: set warm start failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
     }
     
-    /* sen5x_set_nox_algorithm_tuning/sen5x_get_nox_algorithm_tuning test */
-    sen5x_interface_debug_print("sen5x: sen5x_set_nox_algorithm_tuning/sen5x_get_nox_algorithm_tuning test.\n");
+    if (type != SEN50)
+    {
+        /* sen5x_set_voc_algorithm_tuning/sen5x_get_voc_algorithm_tuning test */
+        sen5x_interface_debug_print("sen5x: sen5x_set_voc_algorithm_tuning/sen5x_get_voc_algorithm_tuning test.\n");
+        
+        reg16s0 = (rand() % 100) + 1;
+        reg16s1 = (rand() % 100) + 1;
+        reg16s2 = (rand() % 100) + 1;
+        reg16s3 = (rand() % 100) + 1;
+        reg16s4 = (rand() % 100) + 10;
+        reg16s5 = (rand() % 100) + 1;
+        res = sen5x_set_voc_algorithm_tuning(&gs_handle, reg16s0, reg16s1, reg16s2,
+                                             reg16s3, reg16s4, reg16s5);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: set voc algorithm tuning failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: set index offset %d.\n", reg16s0);
+        sen5x_interface_debug_print("sen5x: set learning time offset hour %d.\n", reg16s1);
+        sen5x_interface_debug_print("sen5x: set learning time gain hour %d.\n", reg16s2);
+        sen5x_interface_debug_print("sen5x: set gating max duration minute %d.\n", reg16s3);
+        sen5x_interface_debug_print("sen5x: set std initial %d.\n", reg16s4);
+        sen5x_interface_debug_print("sen5x: set gain factor %d.\n", reg16s5);
+        res = sen5x_get_voc_algorithm_tuning(&gs_handle, &reg16s0_check, &reg16s1_check, &reg16s2_check,
+                                             &reg16s3_check, &reg16s4_check, &reg16s5_check);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: get voc algorithm tuning failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: check index offset %s.\n", reg16s0 == reg16s0_check ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check learning time offset hour %s.\n", reg16s1 == reg16s1_check ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check learning time gain hour %s.\n", reg16s2 == reg16s2_check ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check gating max duration minute %s.\n", reg16s3 == reg16s3_check ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check std initial %s.\n", reg16s4 == reg16s4_check ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check gain factor %s.\n", reg16s5 == reg16s5_check ? "ok" : "error");
+        
+        /* restore */
+        res = sen5x_set_voc_algorithm_tuning(&gs_handle, 100, 12, 12, 180, 50, 230);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: set voc algorithm tuning failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+    }
     
-    reg16s0 = (rand() % 100) + 1;
-    reg16s1 = (rand() % 100) + 1;
-    reg16s2 = 12;
-    reg16s3 = (rand() % 100) + 1;
-    reg16s4 = 50;
-    reg16s5 = (rand() % 100) + 1;
-    res = sen5x_set_nox_algorithm_tuning(&gs_handle, reg16s0, reg16s1, reg16s2,
-                                         reg16s3, reg16s4, reg16s5);
-    if (res != 0)
+    if (type == SEN55)
     {
-        sen5x_interface_debug_print("sen5x: set nox algorithm tuning failed.\n");
-        (void)sen5x_deinit(&gs_handle);
+        /* sen5x_set_nox_algorithm_tuning/sen5x_get_nox_algorithm_tuning test */
+        sen5x_interface_debug_print("sen5x: sen5x_set_nox_algorithm_tuning/sen5x_get_nox_algorithm_tuning test.\n");
         
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: set index offset %d.\n", reg16s0);
-    sen5x_interface_debug_print("sen5x: set learning time offset hour %d.\n", reg16s1);
-    sen5x_interface_debug_print("sen5x: set learning time gain hour %d.\n", reg16s2);
-    sen5x_interface_debug_print("sen5x: set gating max duration minute %d.\n", reg16s3);
-    sen5x_interface_debug_print("sen5x: set std initial %d.\n", reg16s4);
-    sen5x_interface_debug_print("sen5x: set gain factor %d.\n", reg16s5);
-    res = sen5x_get_nox_algorithm_tuning(&gs_handle, &reg16s0_check, &reg16s1_check, &reg16s2_check,
-                                         &reg16s3_check, &reg16s4_check, &reg16s5_check);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: get nox algorithm tuning failed.\n");
-        (void)sen5x_deinit(&gs_handle);
+        reg16s0 = (rand() % 100) + 1;
+        reg16s1 = (rand() % 100) + 1;
+        reg16s2 = 12;
+        reg16s3 = (rand() % 100) + 1;
+        reg16s4 = 50;
+        reg16s5 = (rand() % 100) + 1;
+        res = sen5x_set_nox_algorithm_tuning(&gs_handle, reg16s0, reg16s1, reg16s2,
+                                             reg16s3, reg16s4, reg16s5);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: set nox algorithm tuning failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: set index offset %d.\n", reg16s0);
+        sen5x_interface_debug_print("sen5x: set learning time offset hour %d.\n", reg16s1);
+        sen5x_interface_debug_print("sen5x: set learning time gain hour %d.\n", reg16s2);
+        sen5x_interface_debug_print("sen5x: set gating max duration minute %d.\n", reg16s3);
+        sen5x_interface_debug_print("sen5x: set std initial %d.\n", reg16s4);
+        sen5x_interface_debug_print("sen5x: set gain factor %d.\n", reg16s5);
+        res = sen5x_get_nox_algorithm_tuning(&gs_handle, &reg16s0_check, &reg16s1_check, &reg16s2_check,
+                                             &reg16s3_check, &reg16s4_check, &reg16s5_check);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: get nox algorithm tuning failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: check index offset %s.\n", reg16s0 == reg16s0_check ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check learning time offset hour %s.\n", reg16s1 == reg16s1_check ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check learning time gain hour %s.\n", reg16s2 == reg16s2_check ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check gating max duration minute %s.\n", reg16s3 == reg16s3_check ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check std initial %s.\n", reg16s4 == reg16s4_check ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check gain factor %s.\n", reg16s5 == reg16s5_check ? "ok" : "error");
         
-        return 1;
+        /* restore */
+        res = sen5x_set_nox_algorithm_tuning(&gs_handle, 1, 12, 12, 720, 50, 230);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: set nox algorithm tuning failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
     }
-    sen5x_interface_debug_print("sen5x: check index offset %s.\n", reg16s0 == reg16s0_check ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check learning time offset hour %s.\n", reg16s1 == reg16s1_check ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check learning time gain hour %s.\n", reg16s2 == reg16s2_check ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check gating max duration minute %s.\n", reg16s3 == reg16s3_check ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check std initial %s.\n", reg16s4 == reg16s4_check ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check gain factor %s.\n", reg16s5 == reg16s5_check ? "ok" : "error");
     
-    /* restore */
-    res = sen5x_set_nox_algorithm_tuning(&gs_handle, 1, 12, 12, 720, 50, 230);
-    if (res != 0)
+    if (type != SEN50)
     {
-        sen5x_interface_debug_print("sen5x: set nox algorithm tuning failed.\n");
-        (void)sen5x_deinit(&gs_handle);
+        /* sen5x_set_rht_acceleration_mode/sen5x_get_rht_acceleration_mode test */
+        sen5x_interface_debug_print("sen5x: sen5x_set_rht_acceleration_mode/sen5x_get_rht_acceleration_mode test.\n");
         
-        return 1;
+        /* set rht acceleration mode low */
+        res = sen5x_set_rht_acceleration_mode(&gs_handle, SEN5X_RHT_ACCELERATION_LOW);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: set rht acceleration mode failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: set rht acceleration mode low.\n");
+        res = sen5x_get_rht_acceleration_mode(&gs_handle, &mode);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: get rht acceleration mode failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: check rht acceleration mode %s.\n", mode == SEN5X_RHT_ACCELERATION_LOW ? "ok" : "error");
+        
+        /* set rht acceleration mode high */
+        res = sen5x_set_rht_acceleration_mode(&gs_handle, SEN5X_RHT_ACCELERATION_HIGH);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: set rht acceleration mode failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: set rht acceleration mode high.\n");
+        res = sen5x_get_rht_acceleration_mode(&gs_handle, &mode);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: get rht acceleration mode failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: check rht acceleration mode %s.\n", mode == SEN5X_RHT_ACCELERATION_HIGH ? "ok" : "error");
+        
+        /* set rht acceleration mode medium */
+        res = sen5x_set_rht_acceleration_mode(&gs_handle, SEN5X_RHT_ACCELERATION_MEDIUM);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: set rht acceleration mode failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: set rht acceleration mode medium.\n");
+        res = sen5x_get_rht_acceleration_mode(&gs_handle, &mode);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: get rht acceleration mode failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: check rht acceleration mode %s.\n", mode == SEN5X_RHT_ACCELERATION_MEDIUM ? "ok" : "error");
     }
     
-    /* sen5x_set_rht_acceleration_mode/sen5x_get_rht_acceleration_mode test */
-    sen5x_interface_debug_print("sen5x: sen5x_set_rht_acceleration_mode/sen5x_get_rht_acceleration_mode test.\n");
-    
-    /* set rht acceleration mode low */
-    res = sen5x_set_rht_acceleration_mode(&gs_handle, SEN5X_RHT_ACCELERATION_LOW);
-    if (res != 0)
+    if (type != SEN50)
     {
-        sen5x_interface_debug_print("sen5x: set rht acceleration mode failed.\n");
-        (void)sen5x_deinit(&gs_handle);
+        /* sen5x_set_voc_algorithm_state/sen5x_get_voc_algorithm_state test */
+        sen5x_interface_debug_print("sen5x: sen5x_set_voc_algorithm_state/sen5x_get_voc_algorithm_state test.\n");
         
-        return 1;
+        state[0] = rand() % 0xFFFFU;
+        state[1] = rand() % 0xFFFFU;
+        state[2] = rand() % 0xFFFFU;
+        state[3] = rand() % 0xFFFFU;
+        res = sen5x_set_voc_algorithm_state(&gs_handle, state);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: set voc algorithm state failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: set state0 0x%04X.\n", state[0]);
+        sen5x_interface_debug_print("sen5x: set state1 0x%04X.\n", state[1]);
+        sen5x_interface_debug_print("sen5x: set state2 0x%04X.\n", state[2]);
+        sen5x_interface_debug_print("sen5x: set state3 0x%04X.\n", state[3]);
+        res = sen5x_get_voc_algorithm_state(&gs_handle, state_check);
+        if (res != 0)
+        {
+            sen5x_interface_debug_print("sen5x: get voc algorithm state failed.\n");
+            (void)sen5x_deinit(&gs_handle);
+            
+            return 1;
+        }
+        sen5x_interface_debug_print("sen5x: check state0 %s.\n", state[0] == state_check[0] ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check state1 %s.\n", state[1] == state_check[1] ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check state2 %s.\n", state[2] == state_check[2] ? "ok" : "error");
+        sen5x_interface_debug_print("sen5x: check state3 %s.\n", state[3] == state_check[3] ? "ok" : "error");
     }
-    sen5x_interface_debug_print("sen5x: set rht acceleration mode low.\n");
-    res = sen5x_get_rht_acceleration_mode(&gs_handle, &mode);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: get rht acceleration mode failed.\n");
-        (void)sen5x_deinit(&gs_handle);
-        
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: check rht acceleration mode %s.\n", mode == SEN5X_RHT_ACCELERATION_LOW ? "ok" : "error");
-    
-    /* set rht acceleration mode high */
-    res = sen5x_set_rht_acceleration_mode(&gs_handle, SEN5X_RHT_ACCELERATION_HIGH);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: set rht acceleration mode failed.\n");
-        (void)sen5x_deinit(&gs_handle);
-        
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: set rht acceleration mode high.\n");
-    res = sen5x_get_rht_acceleration_mode(&gs_handle, &mode);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: get rht acceleration mode failed.\n");
-        (void)sen5x_deinit(&gs_handle);
-        
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: check rht acceleration mode %s.\n", mode == SEN5X_RHT_ACCELERATION_HIGH ? "ok" : "error");
-    
-    /* set rht acceleration mode medium */
-    res = sen5x_set_rht_acceleration_mode(&gs_handle, SEN5X_RHT_ACCELERATION_MEDIUM);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: set rht acceleration mode failed.\n");
-        (void)sen5x_deinit(&gs_handle);
-        
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: set rht acceleration mode medium.\n");
-    res = sen5x_get_rht_acceleration_mode(&gs_handle, &mode);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: get rht acceleration mode failed.\n");
-        (void)sen5x_deinit(&gs_handle);
-        
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: check rht acceleration mode %s.\n", mode == SEN5X_RHT_ACCELERATION_MEDIUM ? "ok" : "error");
-    
-    /* sen5x_set_voc_algorithm_state/sen5x_get_voc_algorithm_state test */
-    sen5x_interface_debug_print("sen5x: sen5x_set_voc_algorithm_state/sen5x_get_voc_algorithm_state test.\n");
-    
-    state[0] = rand() % 0xFFFFU;
-    state[1] = rand() % 0xFFFFU;
-    state[2] = rand() % 0xFFFFU;
-    state[3] = rand() % 0xFFFFU;
-    res = sen5x_set_voc_algorithm_state(&gs_handle, state);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: set voc algorithm state failed.\n");
-        (void)sen5x_deinit(&gs_handle);
-        
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: set state0 0x%04X.\n", state[0]);
-    sen5x_interface_debug_print("sen5x: set state1 0x%04X.\n", state[1]);
-    sen5x_interface_debug_print("sen5x: set state2 0x%04X.\n", state[2]);
-    sen5x_interface_debug_print("sen5x: set state3 0x%04X.\n", state[3]);
-    res = sen5x_get_voc_algorithm_state(&gs_handle, state_check);
-    if (res != 0)
-    {
-        sen5x_interface_debug_print("sen5x: get voc algorithm state failed.\n");
-        (void)sen5x_deinit(&gs_handle);
-        
-        return 1;
-    }
-    sen5x_interface_debug_print("sen5x: check state0 %s.\n", state[0] == state_check[0] ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check state1 %s.\n", state[1] == state_check[1] ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check state2 %s.\n", state[2] == state_check[2] ? "ok" : "error");
-    sen5x_interface_debug_print("sen5x: check state3 %s.\n", state[3] == state_check[3] ? "ok" : "error");
     
     /* sen5x_start_fan_cleaning test */
     sen5x_interface_debug_print("sen5x: sen5x_start_fan_cleaning test.\n");
