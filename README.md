@@ -10,7 +10,7 @@
 
 The SEN5x is a unique sensor module family combining the measurement of critical air quality parameters particulate matter, VOC, NOx, humidity, and temperature – in a single package. The modules are a result of Sensirion’s extensive experience in environmental sensing and offers best possible performance of each sensing parameter, a superior lifetime, as well as a compact form factor. The SEN5x sensors provide fully calibrated outputs with a digital interface. The combination of all measurement parameters in a single device allows manufacturers of air quality devices to reduce design and integration efforts, shorten development times and simplify their supply chain. Proprietary algorithms enable straightforward integration into HVAC and air quality applications allowing resource/time savings and focus on core competencies. The implemented Sensirion Temperature Acceleration Routine (STAR) engine accelerates the device’s response to ambient temperature change by a factor of 2-3 to provide better UX and more accurate measurements to end users.
 
-LibDriver SEN5X is a full-featured driver of SEN5X launched by LibDriver. It provides air quality reading, VOC or NOx index reading, temperature and humidity reading, automatic cleaning configuration, ID reading and other functions. LibDriver is MISRA compliant.
+LibDriver SEN5X is a full-featured driver for SEN5X, launched by LibDriver. It provides air quality reading, VOC or NOx index reading, temperature and humidity reading, automatic cleaning configuration, ID reading and additional features. LibDriver is MISRA compliant.
 
 ### Table of Contents
 
