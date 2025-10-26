@@ -1,12 +1,11 @@
 var searchData=
 [
-  ['temperature_5fdegree_194',['temperature_degree',['../structsen5x__raw__s.html#aa6780f67d54fb408d9c858b0a4cf019e',1,'sen5x_raw_s']]],
-  ['temperature_5fmax_195',['temperature_max',['../structsen5x__info__s.html#a3366a5dce9b829e03c3d321c2b4df3f6',1,'sen5x_info_s']]],
-  ['temperature_5fmax_196',['TEMPERATURE_MAX',['../driver__sen5x_8c.html#a90c0b20d54005712fcc8cb01281360e9',1,'driver_sen5x.c']]],
-  ['temperature_5fmin_197',['temperature_min',['../structsen5x__info__s.html#a8f9dbe66ac0b66ebae0a36fcb4ba368e',1,'sen5x_info_s']]],
-  ['temperature_5fmin_198',['TEMPERATURE_MIN',['../driver__sen5x_8c.html#aab353db5bf4eb787f86a2080f609a551',1,'driver_sen5x.c']]],
-  ['temperature_5fraw_199',['temperature_raw',['../structsen5x__raw__s.html#aa12264d8bfeaa407e8d1805137966b97',1,'sen5x_raw_s']]],
-  ['type_200',['type',['../structsen5x__handle__s.html#a1d127017fb298b889f4ba24752d08b8e',1,'sen5x_handle_s']]],
-  ['typical_5fparticle_5fraw_201',['typical_particle_raw',['../structsen5x__pm__s.html#af2527acc19400d3ea0a89f9a2b2d2171',1,'sen5x_pm_s']]],
-  ['typical_5fparticle_5fum_202',['typical_particle_um',['../structsen5x__pm__s.html#a293be80a24685c749392e5120519a253',1,'sen5x_pm_s']]]
+  ['nox_0',['nox',['../structsen5x__raw__s.html#a6b6626815e4b88d8a20dd2d7d2a38ead',1,'sen5x_raw_s']]],
+  ['nox_5findex_1',['nox_index',['../structsen55__data__s.html#ad55ac626171efb125ed7fd33ddce6923',1,'sen55_data_s']]],
+  ['nox_5fraw_2',['nox_raw',['../structsen55__data__s.html#aa72e7c9653d936c102e6927502f31a77',1,'sen55_data_s::nox_raw'],['../structsen5x__raw__s.html#a556deb0ded156fb724888256c98d293e',1,'sen5x_raw_s::nox_raw']]],
+  ['number_5fconcentration_5fpm0p5_5fraw_3',['number_concentration_pm0p5_raw',['../structsen5x__pm__s.html#a3cd3912abab2b969655feb7ab39b4af9',1,'sen5x_pm_s']]],
+  ['number_5fconcentration_5fpm10_5fraw_4',['number_concentration_pm10_raw',['../structsen5x__pm__s.html#a267f2f619acad04328ba18370a8e0c2d',1,'sen5x_pm_s']]],
+  ['number_5fconcentration_5fpm1p0_5fraw_5',['number_concentration_pm1p0_raw',['../structsen5x__pm__s.html#a54d4df95400e1dde4616a4f3fc9addbb',1,'sen5x_pm_s']]],
+  ['number_5fconcentration_5fpm2p5_5fraw_6',['number_concentration_pm2p5_raw',['../structsen5x__pm__s.html#ab9209fff7db3dd30a8db5944c78955b7',1,'sen5x_pm_s']]],
+  ['number_5fconcentration_5fpm4p0_5fraw_7',['number_concentration_pm4p0_raw',['../structsen5x__pm__s.html#a9b5048ee14d5bc31a17d053a7bb4bc35',1,'sen5x_pm_s']]]
 ];

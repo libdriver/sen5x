@@ -1,5 +1,25 @@
 var searchData=
 [
-  ['humidity_5fpercentage_27',['humidity_percentage',['../structsen5x__raw__s.html#a94ee3dd5ade9d888da1327c12c28aee8',1,'sen5x_raw_s']]],
-  ['humidity_5fraw_28',['humidity_raw',['../structsen5x__raw__s.html#aefeaf3f4962c03bfd80d71456cbf07af',1,'sen5x_raw_s']]]
+  ['debug_5fprint_0',['debug_print',['../structsen5x__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b',1,'sen5x_handle_s']]],
+  ['delay_5fms_1',['delay_ms',['../structsen5x__handle__s.html#a406c9433252b7366de417b7a60915c81',1,'sen5x_handle_s']]],
+  ['driver_20function_2',['driver function',['../group__sen5x__basic__driver.html',1,'sen5x basic driver function'],['../group__sen5x__driver.html',1,'sen5x driver function'],['../group__sen5x__example__driver.html',1,'sen5x example driver function'],['../group__sen5x__extern__driver.html',1,'sen5x extern driver function'],['../group__sen5x__interface__driver.html',1,'sen5x interface driver function'],['../group__sen5x__link__driver.html',1,'sen5x link driver function'],['../group__sen5x__test__driver.html',1,'sen5x test driver function']]],
+  ['driver_5fsen5x_2ec_3',['driver_sen5x.c',['../driver__sen5x_8c.html',1,'']]],
+  ['driver_5fsen5x_2eh_4',['driver_sen5x.h',['../driver__sen5x_8h.html',1,'']]],
+  ['driver_5fsen5x_5fbasic_2ec_5',['driver_sen5x_basic.c',['../driver__sen5x__basic_8c.html',1,'']]],
+  ['driver_5fsen5x_5fbasic_2eh_6',['driver_sen5x_basic.h',['../driver__sen5x__basic_8h.html',1,'']]],
+  ['driver_5fsen5x_5finterface_2eh_7',['driver_sen5x_interface.h',['../driver__sen5x__interface_8h.html',1,'']]],
+  ['driver_5fsen5x_5finterface_5ftemplate_2ec_8',['driver_sen5x_interface_template.c',['../driver__sen5x__interface__template_8c.html',1,'']]],
+  ['driver_5fsen5x_5flink_5fdebug_5fprint_9',['DRIVER_SEN5X_LINK_DEBUG_PRINT',['../group__sen5x__link__driver.html#ga1f56b38e318487c6cf699779a8d0db7a',1,'driver_sen5x.h']]],
+  ['driver_5fsen5x_5flink_5fdelay_5fms_10',['DRIVER_SEN5X_LINK_DELAY_MS',['../group__sen5x__link__driver.html#ga5db10bf8b02384e7c309954f1642aba5',1,'driver_sen5x.h']]],
+  ['driver_5fsen5x_5flink_5fiic_5fdeinit_11',['DRIVER_SEN5X_LINK_IIC_DEINIT',['../group__sen5x__link__driver.html#ga61f2d9ef5f3ee978537064faf7ce3a8e',1,'driver_sen5x.h']]],
+  ['driver_5fsen5x_5flink_5fiic_5finit_12',['DRIVER_SEN5X_LINK_IIC_INIT',['../group__sen5x__link__driver.html#ga9d4db2815b3947eabc430e44690fa31e',1,'driver_sen5x.h']]],
+  ['driver_5fsen5x_5flink_5fiic_5fread_5fcommand_13',['DRIVER_SEN5X_LINK_IIC_READ_COMMAND',['../group__sen5x__link__driver.html#ga492234c1f752e447fc4e5fb72308f044',1,'driver_sen5x.h']]],
+  ['driver_5fsen5x_5flink_5fiic_5fwrite_5fcommand_14',['DRIVER_SEN5X_LINK_IIC_WRITE_COMMAND',['../group__sen5x__link__driver.html#gac9bf879860cb30f3c6c879ebd815fd70',1,'driver_sen5x.h']]],
+  ['driver_5fsen5x_5flink_5finit_15',['DRIVER_SEN5X_LINK_INIT',['../group__sen5x__link__driver.html#gaee50fcd6ee2c20b133c7f549d3f5c540',1,'driver_sen5x.h']]],
+  ['driver_5fsen5x_5fread_5ftest_2ec_16',['driver_sen5x_read_test.c',['../driver__sen5x__read__test_8c.html',1,'']]],
+  ['driver_5fsen5x_5fread_5ftest_2eh_17',['driver_sen5x_read_test.h',['../driver__sen5x__read__test_8h.html',1,'']]],
+  ['driver_5fsen5x_5fregister_5ftest_2ec_18',['driver_sen5x_register_test.c',['../driver__sen5x__register__test_8c.html',1,'']]],
+  ['driver_5fsen5x_5fregister_5ftest_2eh_19',['driver_sen5x_register_test.h',['../driver__sen5x__register__test_8h.html',1,'']]],
+  ['driver_5fversion_20',['DRIVER_VERSION',['../driver__sen5x_8c.html#ae578001fe043b4cca7a0edd801cfe9c4',1,'driver_sen5x.c']]],
+  ['driver_5fversion_21',['driver_version',['../structsen5x__info__s.html#a41b0bd442708b70d252c50b92c75265a',1,'sen5x_info_s']]]
 ];
