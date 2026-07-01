@@ -1576,7 +1576,7 @@ $(function(){initNavTree('driver__sen5x_8c_source.html','',''); });
 <div class="line"><a id="l01829" name="l01829"></a><span class="lineno"> 1829</span>    {</div>
 <div class="line"><a id="l01830" name="l01830"></a><span class="lineno"> 1830</span>        <span class="keywordflow">return</span> 3;                                                                                            <span class="comment">/* return error */</span></div>
 <div class="line"><a id="l01831" name="l01831"></a><span class="lineno"> 1831</span>    }</div>
-<div class="line"><a id="l01832" name="l01832"></a><span class="lineno"> 1832</span>    <span class="keywordflow">if</span> ((second &lt; 10) || (second &gt; 604800))                                                                  <span class="comment">/* check second */</span></div>
+<div class="line"><a id="l01832" name="l01832"></a><span class="lineno"> 1832</span>    <span class="keywordflow">if</span> ((second != 0) &amp;&amp; ((second &lt; 10) || (second &gt; 604800)))                                               <span class="comment">/* check second */</span></div>
 <div class="line"><a id="l01833" name="l01833"></a><span class="lineno"> 1833</span>    {</div>
 <div class="line"><a id="l01834" name="l01834"></a><span class="lineno"> 1834</span>        handle-&gt;<a class="code hl_variable" href="structsen5x__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b">debug_print</a>(<span class="stringliteral">&quot;sen5x: second is invalid.\n&quot;</span>);                                                  <span class="comment">/* second is invalid */</span></div>
 <div class="line"><a id="l01835" name="l01835"></a><span class="lineno"> 1835</span>           </div>
