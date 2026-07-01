@@ -1814,7 +1814,7 @@ uint8_t sen5x_start_fan_cleaning(sen5x_handle_t *handle)
  *            - 2 handle is NULL
  *            - 3 handle is not initialized
  *            - 4 second is invalid
- * @note      10 <= second <= 604800
+ * @note      10 <= second <= 604800 or 0
  */
 uint8_t sen5x_set_auto_cleaning_interval(sen5x_handle_t *handle, uint32_t second)
 {
@@ -1829,7 +1829,7 @@ uint8_t sen5x_set_auto_cleaning_interval(sen5x_handle_t *handle, uint32_t second
     {
         return 3;                                                                                            /* return error */
     }
-    if ((second < 10) || (second > 604800))                                                                  /* check second */
+    if ((second != 0) && ((second < 10) || (second > 604800)))                                               /* check second */
     {
         handle->debug_print("sen5x: second is invalid.\n");                                                  /* second is invalid */
            
