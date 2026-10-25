@@ -79,6 +79,21 @@
 #define SEN5X_IIC_COMMAND_READ_MEASURED_RAW_VALUES                 0x03D2U        /**< read measured raw values command */
 
 /**
+ * @brief  make nann
+ * @return assembled float
+ * @note   none
+ */
+static float a_sen5x_make_nan(void)
+{
+    float value;
+    uint32_t bits = 0x7FC00000U;                 /* set nan */
+
+    memcpy(&value, &bits, sizeof(value));        /* copy value */
+
+    return value;                                /* return the value */
+}
+
+/**
  * @brief     generate the crc
  * @param[in] *handle pointer to a sen5x handle structure
  * @param[in] *data pointer to a data buffer
@@ -89,9 +104,11 @@
 static uint8_t a_sen5x_crc(sen5x_handle_t *handle, uint8_t* data, uint8_t count) 
 {
     uint8_t current_byte;
-    uint8_t crc = 0xFF;
     uint8_t crc_bit;
-
+    uint8_t crc = 0xFF;
+    
+    (void)handle;                                                       /* no used */
+    
     for (current_byte = 0; current_byte < count; ++current_byte)        /* calculate crc */
     {
         crc ^= (data[current_byte]);                                    /* xor data */
@@ -413,10 +430,10 @@ uint8_t sen55_read(sen5x_handle_t *handle, sen55_data_t *output)
     if ((output->pm1p0_raw == 0xFFFFU) || (output->pm2p5_raw == 0xFFFFU) || 
         (output->pm4p0_raw == 0xFFFFU) || (output->pm10_raw == 0xFFFFU))                                                    /* check invalid */
     {
-        output->pm1p0_ug_m3 = FP_NAN;                                                                                       /* set nan */
-        output->pm2p5_ug_m3 = FP_NAN;                                                                                       /* set nan */
-        output->pm4p0_ug_m3 = FP_NAN;                                                                                       /* set nan */
-        output->pm10_ug_m3 = FP_NAN;                                                                                        /* set nan */
+        output->pm1p0_ug_m3 = a_sen5x_make_nan();                                                                           /* set nan */
+        output->pm2p5_ug_m3 = a_sen5x_make_nan();                                                                           /* set nan */
+        output->pm4p0_ug_m3 = a_sen5x_make_nan();                                                                           /* set nan */
+        output->pm10_ug_m3 = a_sen5x_make_nan();                                                                            /* set nan */
         output->pm_valid = 0;                                                                                               /* set invalid */
     }
     else
@@ -429,7 +446,7 @@ uint8_t sen55_read(sen5x_handle_t *handle, sen55_data_t *output)
     }
     if (output->compensated_ambient_humidity_raw == 0x7FFF)                                                                 /* check humidity raw */
     {
-        output->compensated_ambient_humidity_percentage = FP_NAN;                                                           /* set nan */
+        output->compensated_ambient_humidity_percentage = a_sen5x_make_nan();                                               /* set nan */
     }
     else                                                                                                                    /* convert */
     {
@@ -437,7 +454,7 @@ uint8_t sen55_read(sen5x_handle_t *handle, sen55_data_t *output)
     }
     if (output->compensated_ambient_temperature_raw == 0x7FFF)                                                              /* check temperature raw */
     {
-        output->compensated_ambient_temperature_degree = FP_NAN;                                                            /* set nan */
+        output->compensated_ambient_temperature_degree = a_sen5x_make_nan();                                                /* set nan */
     }
     else
     {
@@ -445,7 +462,7 @@ uint8_t sen55_read(sen5x_handle_t *handle, sen55_data_t *output)
     }
     if (output->voc_raw == 0x7FFF)                                                                                          /* check voc raw */
     {
-        output->voc_index = FP_NAN;                                                                                         /* set nan */
+        output->voc_index = a_sen5x_make_nan();                                                                             /* set nan */
     }
     else
     {
@@ -453,7 +470,7 @@ uint8_t sen55_read(sen5x_handle_t *handle, sen55_data_t *output)
     }
     if (output->nox_raw == 0x7FFF)                                                                                          /* check nox raw */
     {
-        output->nox_index = FP_NAN;                                                                                         /* set nan */
+        output->nox_index = a_sen5x_make_nan();                                                                             /* set nan */
     }
     else
     {
@@ -545,10 +562,10 @@ uint8_t sen54_read(sen5x_handle_t *handle, sen54_data_t *output)
     if ((output->pm1p0_raw == 0xFFFFU) || (output->pm2p5_raw == 0xFFFFU) || 
         (output->pm4p0_raw == 0xFFFFU) || (output->pm10_raw == 0xFFFFU))                                                    /* check invalid */
     {
-        output->pm1p0_ug_m3 = FP_NAN;                                                                                       /* set nan */
-        output->pm2p5_ug_m3 = FP_NAN;                                                                                       /* set nan */
-        output->pm4p0_ug_m3 = FP_NAN;                                                                                       /* set nan */
-        output->pm10_ug_m3 = FP_NAN;                                                                                        /* set nan */
+        output->pm1p0_ug_m3 = a_sen5x_make_nan();                                                                           /* set nan */
+        output->pm2p5_ug_m3 = a_sen5x_make_nan();                                                                           /* set nan */
+        output->pm4p0_ug_m3 = a_sen5x_make_nan();                                                                           /* set nan */
+        output->pm10_ug_m3 = a_sen5x_make_nan();                                                                            /* set nan */
         output->pm_valid = 0;                                                                                               /* set invalid */
     }
     else
@@ -561,7 +578,7 @@ uint8_t sen54_read(sen5x_handle_t *handle, sen54_data_t *output)
     }
     if (output->compensated_ambient_humidity_raw == 0x7FFF)                                                                 /* check humidity raw */
     {
-        output->compensated_ambient_humidity_percentage = FP_NAN;                                                           /* set nan */
+        output->compensated_ambient_humidity_percentage = a_sen5x_make_nan();                                               /* set nan */
     }
     else                                                                                                                    /* convert */
     {
@@ -569,7 +586,7 @@ uint8_t sen54_read(sen5x_handle_t *handle, sen54_data_t *output)
     }
     if (output->compensated_ambient_temperature_raw == 0x7FFF)                                                              /* check temperature raw */
     {
-        output->compensated_ambient_temperature_degree = FP_NAN;                                                            /* set nan */
+        output->compensated_ambient_temperature_degree = a_sen5x_make_nan();                                                /* set nan */
     }
     else
     {
@@ -577,7 +594,7 @@ uint8_t sen54_read(sen5x_handle_t *handle, sen54_data_t *output)
     }
     if (output->voc_raw == 0x7FFF)                                                                                          /* check voc raw */
     {
-        output->voc_index = FP_NAN;                                                                                         /* set nan */
+        output->voc_index = a_sen5x_make_nan();                                                                             /* set nan */
     }
     else
     {
@@ -666,10 +683,10 @@ uint8_t sen50_read(sen5x_handle_t *handle, sen50_data_t *output)
     if ((output->pm1p0_raw == 0xFFFFU) || (output->pm2p5_raw == 0xFFFFU) || 
         (output->pm4p0_raw == 0xFFFFU) || (output->pm10_raw == 0xFFFFU))                                                    /* check invalid */
     {
-        output->pm1p0_ug_m3 = FP_NAN;                                                                                       /* set nan */
-        output->pm2p5_ug_m3 = FP_NAN;                                                                                       /* set nan */
-        output->pm4p0_ug_m3 = FP_NAN;                                                                                       /* set nan */
-        output->pm10_ug_m3 = FP_NAN;                                                                                        /* set nan */
+        output->pm1p0_ug_m3 = a_sen5x_make_nan();                                                                           /* set nan */
+        output->pm2p5_ug_m3 = a_sen5x_make_nan();                                                                           /* set nan */
+        output->pm4p0_ug_m3 = a_sen5x_make_nan();                                                                           /* set nan */
+        output->pm10_ug_m3 = a_sen5x_make_nan();                                                                            /* set nan */
         output->pm_valid = 0;                                                                                               /* set invalid */
     }
     else
@@ -765,16 +782,16 @@ uint8_t sen5x_read_pm_value(sen5x_handle_t *handle, sen5x_pm_t *pm)
         (pm->number_concentration_pm10_raw == 0xFFFFU) || (pm->typical_particle_raw == 0xFFFFU)
        )
     {
-        pm->pm1p0_ug_m3 = FP_NAN;                                                                                           /* set nan */
-        pm->pm2p5_ug_m3 = FP_NAN;                                                                                           /* set nan */
-        pm->pm4p0_ug_m3 = FP_NAN;                                                                                           /* set nan */
-        pm->pm10_ug_m3 = FP_NAN;                                                                                            /* set nan */
-        pm->pm0p5_cm3 = FP_NAN;                                                                                             /* set nan */
-        pm->pm1p0_cm3 = FP_NAN;                                                                                             /* set nan */
-        pm->pm2p5_cm3 = FP_NAN;                                                                                             /* set nan */
-        pm->pm4p0_cm3 = FP_NAN;                                                                                             /* set nan */
-        pm->pm10_cm3 = FP_NAN;                                                                                              /* set nan */
-        pm->typical_particle_um = FP_NAN;                                                                                   /* set nan */
+        pm->pm1p0_ug_m3 = a_sen5x_make_nan();                                                                               /* set nan */
+        pm->pm2p5_ug_m3 = a_sen5x_make_nan();                                                                               /* set nan */
+        pm->pm4p0_ug_m3 = a_sen5x_make_nan();                                                                               /* set nan */
+        pm->pm10_ug_m3 = a_sen5x_make_nan();                                                                                /* set nan */
+        pm->pm0p5_cm3 = a_sen5x_make_nan();                                                                                 /* set nan */
+        pm->pm1p0_cm3 = a_sen5x_make_nan();                                                                                 /* set nan */
+        pm->pm2p5_cm3 = a_sen5x_make_nan();                                                                                 /* set nan */
+        pm->pm4p0_cm3 = a_sen5x_make_nan();                                                                                 /* set nan */
+        pm->pm10_cm3 = a_sen5x_make_nan();                                                                                  /* set nan */
+        pm->typical_particle_um = a_sen5x_make_nan();                                                                       /* set nan */
         pm->pm_valid = 0;                                                                                                   /* set invalid */
     }
     else
@@ -876,7 +893,7 @@ uint8_t sen5x_read_raw_value(sen5x_handle_t *handle, sen5x_raw_t *raw)
     }
     else
     {
-        raw->humidity_percentage = FP_NAN;                                                                                  /* set nan */
+        raw->humidity_percentage = a_sen5x_make_nan();                                                                      /* set nan */
     }
     if (raw->temperature_raw != 0x7FFF)                                                                                     /* check valid */
     {
@@ -884,7 +901,7 @@ uint8_t sen5x_read_raw_value(sen5x_handle_t *handle, sen5x_raw_t *raw)
     }
     else
     {
-        raw->temperature_degree = FP_NAN;                                                                                   /* set nan */
+        raw->temperature_degree = a_sen5x_make_nan();                                                                       /* set nan */
     }
     if (raw->voc_raw != 0xFFFFU)                                                                                            /* check valid */
     {
@@ -892,7 +909,7 @@ uint8_t sen5x_read_raw_value(sen5x_handle_t *handle, sen5x_raw_t *raw)
     }
     else
     {
-        raw->voc = FP_NAN;                                                                                                  /* set nan */
+        raw->voc = a_sen5x_make_nan();                                                                                      /* set nan */
     }
     if (raw->nox_raw != 0xFFFFU)                                                                                            /* check valid */
     {
@@ -900,7 +917,7 @@ uint8_t sen5x_read_raw_value(sen5x_handle_t *handle, sen5x_raw_t *raw)
     }
     else
     {
-        raw->nox = FP_NAN;                                                                                                  /* set nan */
+        raw->nox = a_sen5x_make_nan();                                                                                      /* set nan */
     }
     
     return 0;                                                                                                               /* success return 0 */
